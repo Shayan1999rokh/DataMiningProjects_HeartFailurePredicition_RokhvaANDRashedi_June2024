@@ -1,13 +1,388 @@
-This project presents a comprehensive data mining and machine learning analysis for predicting heart failure based on clinical data. Its main objective is to examine and compare the performance of several classical machine learning algorithms for early detection of patients at risk of heart failure. The code is implemented in Python using Jupyter Notebook and relies on well-known libraries such as pandas, numpy, matplotlib, seaborn, and scikit-learn (and occasionally xgboost) for data preprocessing, visualization, and modeling. The dataset used in the project contains a collection of clinical attributes, typically derived from the UCI Heart Failure dataset. The target variable represents the patient’s health condition — specifically, whether a patient suffers from heart failure (1) or not (0), making it a binary classification task.
+❤️ Heart Failure Prediction Using Multiple Machine Learning Algorithms
+📌 Project Overview
 
-The notebook begins by importing all required libraries and loading the dataset from a CSV file. Using commands such as df.head(), df.info(), and df.describe(), the code inspects the dataset’s structure, variable types, and statistical distribution to gain an overview of data quality. Missing values and outliers are detected and treated through imputation or removal, ensuring that no invalid records bias the training process. Categorical or textual variables, such as gender, chest pain type, or smoking status, are encoded into numerical values using Label Encoding or One-Hot Encoding so that they can be processed by the learning algorithms. For example, the “Gender” variable is converted into binary (0 and 1), while multi-class attributes like “ChestPainType” are expanded into multiple binary columns. This preprocessing ensures that the entire dataset is numerical and standardized for model consumption.
+This project presents a comprehensive data mining and machine learning pipeline for predicting heart failure outcomes using a structured medical dataset. The notebook explores the complete workflow of a real-world classification problem, including:
 
-Next, the notebook performs a thorough Exploratory Data Analysis (EDA) to identify the key clinical factors correlated with heart failure. Visualization functions such as sns.countplot, sns.boxplot, and sns.heatmap are employed to analyze class distributions, feature importance, and pairwise correlations between variables. The correlation heatmap highlights attributes that show strong relationships with the target variable, such as age, resting blood pressure, cholesterol level, fasting blood sugar, and maximum heart rate. This visual analysis helps identify redundant or less informative features and supports feature selection for the later modeling stage. Moreover, histograms and boxplots are drawn to understand the data’s spread and detect outliers that might influence the learning process. The dataset is then split into training and testing subsets using train_test_split (typically 70%/30%) to ensure unbiased performance evaluation. Before training, feature scaling using StandardScaler is applied to normalize the input variables — a crucial step for algorithms like SVM and KNN that are sensitive to data scale.
+Data preprocessing
+Missing value simulation and imputation
+Exploratory Data Analysis (EDA)
+Data visualization
+Feature preparation
+Model training and evaluation
+Comparison of multiple machine learning algorithms
+Hyperparameter tuning and cross-validation
+Performance analysis using confusion matrices and accuracy metrics
 
-The modeling section implements and compares multiple classical supervised learning algorithms. The first model is Logistic Regression, a fundamental yet powerful statistical approach that estimates the probability of heart failure through a linear combination of the features. The next model is the Decision Tree Classifier, which recursively partitions the data into smaller subsets based on attribute thresholds and can capture non-linear relationships between predictors. Following that, the Random Forest Classifier is trained — an ensemble of multiple decision trees whose aggregated predictions improve accuracy and reduce overfitting. Another model, K-Nearest Neighbors (KNN), predicts a patient’s condition by comparing it with the most similar instances (neighbors) in the dataset based on Euclidean distance. Finally, the Support Vector Machine (SVM) model is trained using an RBF kernel to find the optimal separating hyperplane between healthy and heart-failure patients. In some extensions of the notebook, algorithms such as Naïve Bayes or XGBoost are also included for further performance comparison. Each model is trained on the training set and evaluated on the testing set to measure generalization ability.
+The project was developed as part of a Data Mining course project by:
 
-The evaluation stage computes various performance metrics to quantify how well each model distinguishes between positive (heart failure) and negative (healthy) cases. Metrics include Accuracy, Precision, Recall, and the F1-score, which together provide a balanced view of model performance across both classes. These are calculated using functions from sklearn.metrics, and the Confusion Matrix is visualized with seaborn.heatmap to display the counts of True Positives, True Negatives, False Positives, and False Negatives. Such visualization reveals how the model behaves in medical scenarios where minimizing false negatives (undiagnosed sick patients) is particularly important. The results are summarized in a performance comparison table. Typically, Random Forest achieves the highest accuracy due to its ability to capture both linear and non-linear relationships and its robustness against noise and overfitting. SVM often achieves similar accuracy but requires longer computation time. In contrast, Logistic Regression offers interpretability and efficiency but struggles with highly non-linear data. KNN shows moderate results but is sensitive to feature scaling and the choice of parameter K. This comparative analysis enables the user to identify the most suitable model depending on their trade-off between accuracy, interpretability, and computational cost.
+Ali Rashedi
+Shayan Rokhva
 
-In the final part of the notebook, additional analyses are conducted to further interpret the models. The feature importance scores derived from the Random Forest model (feature_importances_) are visualized to reveal which clinical factors contribute most to prediction accuracy. Typically, age, cholesterol level, and blood pressure rank among the most influential features. The best-performing model can be saved using libraries like joblib for future deployment or integrated into decision-support systems. Moreover, visualization of ROC curves and bar plots comparing model accuracies provides an intuitive summary of performance across all algorithms.
+Under the supervision of:
 
-Overall, this notebook provides a clean, reproducible, and educational pipeline that covers every step of the data mining process — from data acquisition, preprocessing, and exploratory analysis to model training, validation, and interpretation. It demonstrates how classical machine learning algorithms can be effectively applied to medical diagnosis and risk prediction tasks. The workflow not only benchmarks algorithmic performance but also offers valuable insights into the underlying data patterns that affect heart failure outcomes. Ultimately, this project exemplifies how data-driven modeling and AI can assist clinicians in early disease detection, support evidence-based decision-making, and contribute to the broader vision of intelligent healthcare systems.
+Dr. Khatibi
+📂 Notebook Content
+
+The notebook contains a complete end-to-end workflow for solving a medical classification problem using several supervised learning algorithms.
+
+Main sections include:
+
+Dataset loading and preparation
+Data cleaning and preprocessing
+Artificial missing value generation
+Missing value imputation using KNN Imputer
+Exploratory Data Analysis (EDA)
+Feature scaling and normalization
+Model building using different ML algorithms
+Hyperparameter tuning with GridSearchCV
+K-Fold Cross Validation
+Performance evaluation
+Confusion matrix visualization
+Comparative analysis of models
+🩺 Dataset Description
+
+The project uses a Heart Failure Clinical Records Dataset, which contains clinical and medical features used to predict heart failure events.
+
+Typical features include:
+
+Age
+Anaemia
+Creatinine phosphokinase
+Diabetes
+Ejection fraction
+High blood pressure
+Platelets
+Serum creatinine
+Serum sodium
+Sex
+Smoking
+Time
+Death event (target variable)
+
+The target variable is a binary classification label indicating whether a heart failure event occurred.
+
+⚙️ Technologies & Libraries Used
+
+The project uses Python and several popular data science and machine learning libraries.
+
+Core Libraries
+Python
+NumPy
+Pandas
+Matplotlib
+Seaborn
+Machine Learning Libraries
+Scikit-learn
+XGBoost
+Keras / TensorFlow
+Important Modules Used
+Preprocessing
+StandardScaler
+KNNImputer
+Model Selection
+GridSearchCV
+StratifiedKFold
+Train-Test Split
+Evaluation Metrics
+Accuracy Score
+Classification Report
+Confusion Matrix
+🔄 Data Preprocessing Pipeline
+1️⃣ Dataset Combination
+
+The training and testing datasets are initially separated and later concatenated for comprehensive preprocessing and analysis.
+
+2️⃣ Missing Value Analysis
+
+The dataset originally contains no missing values.
+
+To simulate real-world conditions and fulfill the project requirements, the notebook intentionally introduces random missing values into the dataset.
+
+Artificial Missing Values
+Approximately 5% missing values are generated randomly.
+The missing values are distributed randomly to avoid introducing bias.
+3️⃣ Missing Value Imputation
+
+Missing values are handled using:
+
+KNN Imputer
+
+Special attention is given to categorical variables because KNN imputation may generate non-binary decimal values such as:
+
+0.2
+0.4
+0.6
+0.8
+
+These values are corrected to restore proper categorical integrity.
+
+📊 Exploratory Data Analysis (EDA)
+
+The notebook performs extensive visualization and analysis of the dataset after preprocessing.
+
+Visualizations include:
+
+Feature distributions
+Correlation analysis
+Target class analysis
+Confusion matrices
+Decision tree visualization
+Model comparison plots
+Training vs testing performance charts
+
+The EDA section helps understand:
+
+Feature relationships
+Dataset balance
+Important variables
+Model behavior
+🤖 Machine Learning Models Implemented
+
+The notebook explores and compares several machine learning algorithms.
+
+🌳 1. Decision Tree Classifier
+
+Features:
+
+Hyperparameter optimization using GridSearchCV
+K-Fold Cross Validation
+Decision tree visualization
+Max depth analysis
+Confusion matrix analysis
+Tuned Parameters
+
+Examples include:
+
+max_depth
+min_samples_split
+min_samples_leaf
+🧠 2. Multi-Layer Perceptron (MLP)
+
+A custom neural network architecture is implemented.
+
+MLP Architecture
+
+The notebook mentions a customized architecture with:
+
+5 layers
+Hidden neuron configuration:
+13
+13
+6
+6
+1
+
+Features:
+
+Standardization
+Neural network training
+Accuracy analysis
+Confusion matrix visualization
+Train/Test charts
+📈 3. Support Vector Classifier (SVC)
+
+Features:
+
+Standardization
+Classification performance evaluation
+Confusion matrix analysis
+👥 4. K-Nearest Neighbors (KNN)
+
+Features:
+
+Standardization
+Neighbor-based classification
+Performance evaluation
+🌲 5. Random Forest Classifier
+
+Features:
+
+Ensemble learning
+Improved generalization
+Classification performance analysis
+🚀 6. XGBoost Classifier
+
+Features:
+
+Gradient boosting framework
+High-performance classification
+Advanced ensemble learning
+📉 7. Logistic Regression
+
+Features:
+
+Baseline linear classification
+Binary classification analysis
+⚡ 8. AdaBoost Classifier
+
+Features:
+
+Adaptive boosting
+Weak learner optimization
+🧪 Model Evaluation
+
+The notebook evaluates models using several standard classification metrics.
+
+Evaluation Metrics
+Accuracy
+Confusion Matrix
+Classification Report
+Cross Validation
+Confusion Matrix Analysis
+
+Both:
+
+Normalized confusion matrices
+Non-normalized confusion matrices
+
+are visualized and analyzed.
+
+📉 Feature Scaling
+
+Some models require normalization/standardization.
+
+The project uses:
+
+StandardScaler
+
+Models requiring scaling:
+
+MLP
+SVC
+KNN
+Logistic Regression
+
+Models not requiring scaling:
+
+Decision Tree
+Random Forest
+🔍 Hyperparameter Tuning
+
+The notebook uses:
+
+GridSearchCV
+Cross Validation
+
+for identifying optimal parameters for several machine learning models.
+
+This improves:
+
+Generalization
+Model robustness
+Prediction performance
+📁 Project Structure
+.
+├── Data Mining Projects_Rokhva & Rashedi_Heart Failure Dataset_Different ML algorithms.ipynb
+├── README.md
+└── Dataset Files
+▶️ How to Run the Project
+1️⃣ Clone the Repository
+git clone https://github.com/your-username/your-repository-name.git
+cd your-repository-name
+2️⃣ Install Required Libraries
+pip install numpy pandas matplotlib seaborn scikit-learn xgboost tensorflow keras
+3️⃣ Launch Jupyter Notebook
+jupyter notebook
+
+Then open:
+
+Data Mining Projects_Rokhva & Rashedi_Heart Failure Dataset_Different ML algorithms.ipynb
+🎯 Learning Objectives of This Project
+
+This notebook demonstrates several important concepts in:
+
+Data Mining
+Data preprocessing
+Missing value handling
+Feature engineering
+Data visualization
+Machine Learning
+Classification algorithms
+Model comparison
+Hyperparameter tuning
+Cross validation
+Neural networks
+Ensemble learning
+Real-World Data Challenges
+Artificial missing value generation
+Imputation strategies
+Handling categorical inconsistencies
+Generalization analysis
+📚 Key Concepts Covered
+
+The project is suitable for learning and demonstrating:
+
+Supervised learning
+Medical data classification
+Ensemble methods
+Neural networks
+Tree-based methods
+Feature preprocessing
+KNN imputation
+Cross validation
+Confusion matrix interpretation
+Model evaluation techniques
+🧠 Highlights of the Project
+
+✅ Complete machine learning workflow
+
+✅ Multiple ML algorithms in one notebook
+
+✅ Missing value simulation and imputation
+
+✅ Comprehensive preprocessing pipeline
+
+✅ Advanced model evaluation
+
+✅ Visualization-rich implementation
+
+✅ Educational and research-oriented structure
+
+✅ Hyperparameter tuning and cross-validation
+
+🔬 Academic Purpose
+
+This project was developed for educational and research purposes as part of a university-level Data Mining course.
+
+It demonstrates practical implementation of:
+
+Data mining methodologies
+Machine learning techniques
+Medical dataset analysis
+Experimental evaluation
+📜 License
+
+This project is intended for:
+
+Educational use
+Research purposes
+Portfolio demonstration
+
+Feel free to fork, study, and improve the implementation.
+
+🙌 Acknowledgements
+
+Special thanks to:
+
+Dr. Khatibi
+Open-source Python community
+Scikit-learn developers
+TensorFlow / Keras developers
+XGBoost contributors
+📬 Contact
+
+For questions, collaboration, or academic discussions:
+
+Ali Rashedi
+Shayan Rokhva
+
+You can connect through GitHub or academic platforms.
+
+⭐ If You Found This Helpful
+
+If you found this project useful:
+
+Star the repository ⭐
+Fork the project 🍴
+Share feedback 💡
+Contribute improvements 🚀
